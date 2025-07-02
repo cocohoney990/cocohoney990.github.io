@@ -1,166 +1,116 @@
+/* Using variables for easier color customization */
+:root {
+  --default-box-color: #0275d8;
+  --default-ribbon-color: #f0ad4e;
+}
+
+/* Basic page setup */
 body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 20px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #239ac2;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
 }
 
-.birthdayCard {
-  position: relative;
-  width: 250px;
-  height: 350px;
+main {
+  width: 100%;
+  max-width: 800px;
+}
+
+h1 {
+  font-family: 'Lobster', cursive;
+  font-size: 3rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin-top: 0;
+}
+
+/* The grid container for the boxes */
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* The clickable link wrapper */
+a {
+  text-decoration: none;
+}
+
+/* The main gift box style */
+.gift-box {
+  aspect-ratio: 1 / 1; /* Makes the box a perfect square */
+  background-color: var(--box-color, var(--default-box-color)); /* Use custom or default color */
+  position: relative; /* Needed for positioning the ribbons */
+  border-radius: 8px;
   cursor: pointer;
-  transform-style: preserve-3d;
-  transform: perspective(2500px);
-  transition: 1s;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.birthdayCard:hover {
-  transform: perspective(2500px) rotate(5deg);
-  box-shadow: inset 100px 20px 100px rgba(0, 0, 0, 0.2),
-    0 10px 100px rgba(0, 0, 0, 0.5);
+/* Fun hover effect */
+.gift-box:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.birthdayCard:hover .cardFront {
-  transform: rotateY(-160deg);
-}
-
-.birthdayCard:hover .happy {
-  visibility: hidden;
-}
-
-.cardFront {
-  position: relative;
-  background-color: #fff;
-  width: 250px;
-  height: 350px;
-  overflow: hidden;
-  transform-origin: left;
-  box-shadow: inset 100px 20px 100px rgba(0, 0, 0, 0.2),
-    30px 0 50px rgba(0, 0, 0, 0.4);
-  transition: 0.6s;
-}
-
-.happy {
-  font-family: Tahoma, sans-serif;
-  text-align: center;
-  margin: 30px;
-  background-image: linear-gradient(120deg, #ffd856 0%, #f98c6e 100%);
-  transition: 0.1s;
-}
-
-.balloons {
+/* Styling for the ribbons */
+.ribbon-vertical,
+.ribbon-horizontal {
+  background-color: var(--ribbon-color, var(--default-ribbon-color)); /* Use custom or default color */
   position: absolute;
 }
 
-.balloon-1,
-.balloon-2,
-.balloon-3,
-.balloon-4 {
-  position: absolute;
-  width: 85px;
-  height: 95px;
-  border-radius: 50%;
+/* Vertical ribbon strip */
+.ribbon-vertical {
+  width: 20px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%); /* Centers the ribbon perfectly */
 }
 
-.balloon-1 {
-  background-color: rgba(255, 40, 90, 0.7);
-  left: -10px;
-  top: 50px;
+/* Horizontal ribbon strip */
+.ribbon-horizontal {
+  height: 20px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%); /* Centers the ribbon perfectly */
 }
 
-.balloon-2 {
-  background-color: rgba(9, 215, 160, 0.7);
-  left: 50px;
-  top: 20px;
+footer {
+  margin-top: 40px;
+  color: #95a5a6;
 }
 
-.balloon-3 {
-  background-color: rgba(255, 186, 26, 0.7);
-  left: 110px;
-  top: 50px;
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  h1 {
+      font-size: 2.5rem;
+  }
+  .gift-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+      gap: 25px;
+  }
 }
 
-.balloon-4 {
-  background-color: rgba(12, 122, 159, 0.7);
-  left: 170px;
-  top: 50px;
-}
-
-.balloon-1::before,
-.balloon-2::before,
-.balloon-3::before,
-.balloon-4::before {
-  content: "";
-  position: absolute;
-  width: 1px;
-  height: 155px;
-  background-color: #ffc848;
-  top: 95px;
-  left: 43px;
-}
-
-.balloon-1::after,
-.balloon-2::after,
-.balloon-3::after,
-.balloon-4::after {
-  content: "";
-  position: absolute;
-  border-right: 7px solid transparent;
-  border-left: 7px solid transparent;
-  top: 94px;
-  left: 37px;
-}
-
-.balloon-1::after {
-  border-bottom: 10px solid #ff3e6b;
-}
-
-.balloon-2::after {
-  border-bottom: 10px solid #04b183;
-}
-
-.balloon-3::after {
-  border-bottom: 10px solid #ffc94c;
-}
-
-.balloon-4::after {
-  border-bottom: 10px solid #13a9bd;
-}
-
-.cardInside {
-  position: absolute;
-  background-color: #fff;
-  width: 250px;
-  height: 350px;
-  z-index: -1;
-  left: 0;
-  top: 0;
-  box-shadow: inset 100px 20px 100px rgba(0, 0, 0, 0.2);
-}
-
-p {
-  font-family: "Brush Script MT", cursive;
-  margin: 30px;
-  color: #333;
-  max-height: 200px;
-  overflow-y: auto;
-  padding-right: 10px;
-}
-
-.name {
-  position: absolute;
-  left: 150px;
-  top: 200px;
-  color: #333;
-}
-
-.back {
-  font-family: Tahoma, sans-serif;
-  color: #333;
-  text-align: center;
-  margin: 30px;
-  outline-color: #333;
-  outline-style: dotted;
+@media (max-width: 480px) {
+  h1 {
+      font-size: 2rem;
+  }
+  .gift-grid {
+      grid-template-columns: 1fr; /* 1 column on mobile phones */
+      gap: 20px;
+  }
 }
